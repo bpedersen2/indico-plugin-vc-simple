@@ -29,6 +29,6 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.7'
     ],
-    entry_points={'indico.plugins': {'vc_simplelink = indico_vc_simple.plugin:SimplePlugin',
+    entry_points={'indico.plugins': {'vc_simplelink = indico_vc_simple.plugin:SimpleVCLinkPlugin',
                                      'vc_redirector = indico_vc_simple.plugin:RedirectorPlugin'}}
 )
