@@ -11,7 +11,6 @@ from setuptools import find_packages, setup
 
 setup(
     name='indico-plugin-vc-simple',
-    version='1.0',
     description='Simple/example video-conferencing plugin for Indico',
     url='https://github.com/indico/indico-plugins',
     license='MIT',
@@ -20,6 +19,8 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     install_requires=[
         'indico>=2.0'
     ],
