@@ -1,7 +1,10 @@
 {% extends 'vc/vc_room_timetable_buttons.html' %}
-{% from 'vc_simple:buttons.html' import render_join_button  %}
+{% from 'vc_simplelink:buttons.html' import render_join_button  %}
 {% set vc_room = event_vc_room.vc_room %}
+{% set event = event_vc_room.event %}
 
 {% block buttons %}
+{% if (not vc_room.plugin.show is defined) or vc_room.plugin.show(event, event_vc_room.data.get('only_registered_users')) %}
     {{ render_join_button(vc_room, "i-button-small event-service-right-button join-button") }}
+    {% endif %}
 {% endblock %}

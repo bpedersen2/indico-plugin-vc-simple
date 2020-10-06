@@ -1,8 +1,8 @@
 {% extends 'vc/event_buttons.html' %}
-{% from 'vc_simple:buttons.html' import render_join_button %}
+{% from 'vc_simplelink:buttons.html' import render_join_button %}
 
 {% block buttons %}
-{% if vc_room.data.show_join_button %}
+{% if vc_room.data.show_join_button  %}
 {{ render_join_button(vc_room, "i-button-small event-service-right-button join-button") }}
 {% endif %}
 {% endblock %}

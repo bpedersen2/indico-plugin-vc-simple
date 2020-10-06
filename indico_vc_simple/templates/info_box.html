@@ -1,5 +1,11 @@
+{% set vc_room = event_vc_room.vc_room %}
+{% set event = event_vc_room.event %}
 <dl class="details-container">
     <dt>{% trans %}VC Room link{% endtrans %}</dt>
+{% if (not vc_room.plugin.show is defined) or vc_room.plugin.show(event, event_vc_room.data.get('only_registered_users')) %}
     <dd><a href="{{ vc_room.data.room_url}}">{{ vc_room.data.room_url}}</a></dd>
     <dt></dt><dd></dd>
+{% else %}
+    <dd>Only available for registered users!</dd>
+{% endif %}
 </dl>

@@ -9,7 +9,6 @@ from __future__ import unicode_literals
 
 from setuptools import find_packages, setup
 
-
 setup(
     name='indico-plugin-vc-simple',
     version='1.0',
@@ -30,5 +29,6 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.7'
     ],
-    entry_points={'indico.plugins': {'vc_simple = indico_vc_simple.plugin:SimplePlugin'}}
+    entry_points={'indico.plugins': {'vc_simplelink = indico_vc_simple.plugin:SimplePlugin',
+                                     'vc_redirector = indico_vc_simple.plugin:RedirectorPlugin'}}
 )
