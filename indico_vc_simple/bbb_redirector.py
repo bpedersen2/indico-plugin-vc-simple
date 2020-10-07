@@ -78,7 +78,7 @@ def RHredirectToExternal(contrib_id):
     contrib = Contribution.get_or_404(contrib_id)
     event = contrib.event
     if not session.user:
-        flash(_("The vc link  is only available to logged in users."))
+        flash(_("The vc link  is only available to logged in users."),'error')
         raise BadRequest(response=redirect(event.url))
 
     vcas = contrib.vc_room_associations
@@ -91,7 +91,7 @@ def RHredirectToExternal(contrib_id):
         raise BadRequest(response=redirect(event.url))
     if vca.data.get('only_registered_users') and \
         not any([x[1] for x in get_event_regforms(event, session.user)]):
-        flash(_("The vc link is only available to registered users."))
+        flash(_("The vc link is only available to registered users."),'error')
         raise BadRequest(response=redirect(event.url))
 
     vcroom = vca.vc_room
@@ -100,11 +100,12 @@ def RHredirectToExternal(contrib_id):
 
     req = requests.post(url, json=data)
     if req.status_code != 200:
+        flash('Error: The redirector did not succeed!','error')
         raise BadRequest(response=redirect(event.url))
 
     res = req.json()
     if res['status'] != 'success':
-        flash(_("Videoconference link") + res['message'])
+        flash(_("Videoconference link:") +' '+ res['message'], 'error')
         raise BadRequest(response=redirect(event.url))
 
 
