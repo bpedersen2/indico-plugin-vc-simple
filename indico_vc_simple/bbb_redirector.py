@@ -101,7 +101,13 @@ def RHredirectToExternal(contrib_id):
     req = requests.post(url, json=data)
     if req.status_code != 200:
         raise BadRequest(response=redirect(event.url))
+
     res = req.json()
+    if res['status'] != 'success':
+        flash(_("Videoconference link") + res['message'])
+        raise BadRequest(response=redirect(event.url))
+
+
     return redirect(res['url'])
 
 
