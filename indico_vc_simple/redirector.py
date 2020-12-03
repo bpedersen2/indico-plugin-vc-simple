@@ -56,6 +56,16 @@ class RedirectorPlugin(SimpleVCLinkPlugin):
     vc_room_attach_form = VCRoomAttachForm
     friendly_name = "Redirector Simple"
 
+    @property
+    def logo_url(self):
+        return url_for_plugin(self.name + '.static',
+                              filename='images/redirector_logo.png')
+
+    @property
+    def icon_url(self):
+        return url_for_plugin(self.name + '.static',
+                              filename='images/redirector_icon.png')
+
     def get_blueprints(self):
         return _bp
 

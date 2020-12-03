@@ -5,5 +5,5 @@
 # them and/or modify them under the terms of the MIT License;
 # see the LICENSE file for more details.
 
-from .bbb_redirector import RedirectorPlugin
+from .redirector import RedirectorPlugin
 from .simple import SimpleVCLinkPlugin
