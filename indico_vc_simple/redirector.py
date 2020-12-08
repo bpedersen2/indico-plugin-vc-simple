@@ -58,26 +58,27 @@ class RedirectorPlugin(SimpleVCLinkPlugin):
 
     @property
     def logo_url(self):
-        return url_for_plugin(self.name + '.static',
+        return url_for_plugin(SimpleVCLinkPlugin.name + '.static',
                               filename='images/redirector_logo.png')
 
     @property
     def icon_url(self):
-        return url_for_plugin(self.name + '.static',
+        return url_for_plugin(SimpleVCLinkPlugin.name + '.static',
                               filename='images/redirector_icon.png')
 
     def get_blueprints(self):
         return _bp
 
-    def update_data_vc_room(self, vc_room, data):
+    def update_data_vc_room(self, vc_room, data, is_new=False):
         super(RedirectorPlugin, self).update_data_vc_room(vc_room, data)
 
         for key in ['room_url_base']:
             if key in data:
                 vc_room.data[key] = data.pop(key)
                 contrib = Contribution.get(data['contribution'])
+                cid = contrib.id if contrib else 0
                 vc_room.data['room_url'] = url_for_plugin(
-                    'vc_redirector.vc_redirect', contrib_id=contrib.id)
+                    'vc_redirector.vc_redirect', contrib_id=cid)
 
         flag_modified(vc_room, 'data')
 

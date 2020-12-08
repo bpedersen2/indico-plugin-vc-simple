@@ -93,7 +93,7 @@ class SimpleVCLinkPlugin(VCPluginMixin, IndicoPlugin):
 
         flag_modified(event_vc_room, 'data')
 
-    def update_data_vc_room(self, vc_room, data):
+    def update_data_vc_room(self, vc_room, data, is_new=False):
         super(SimpleVCLinkPlugin, self).update_data_vc_room(vc_room, data)
 
         for key in ['room_url']:
