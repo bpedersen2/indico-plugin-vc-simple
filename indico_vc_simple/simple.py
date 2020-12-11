@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 
 from flask import session
 from sqlalchemy.orm.attributes import flag_modified
-from wtforms.fields.core import BooleanField
+from wtforms.fields.core import BooleanField, StringField
 from wtforms.fields.html5 import URLField
 
 from indico.core.plugins import (IndicoPlugin, IndicoPluginBlueprint,
@@ -21,6 +21,7 @@ from indico.web.forms.widgets import SwitchWidget
 
 class VCRoomForm(VCRoomFormBase):
     room_url = URLField('Room URL?', description="vc room url")
+    extra_text = StringField('Extra infos', description="Extra infos, e.g. password")
     show_join_button = BooleanField(
         _('Show join Button'),
         widget=SwitchWidget(),
@@ -31,8 +32,10 @@ class VCRoomForm(VCRoomFormBase):
         description=_("Only registered users"))
 
 
+
 class VCRoomAttachForm(VCRoomAttachFormBase):
     room_url = URLField('Room URL?', description="vc room url")
+    extra_text = StringField('Extra infos', description="Extra infos, e.g. password")
     show_join_button = BooleanField(
         _('Show join Button'),
         widget=SwitchWidget(),
@@ -88,7 +91,7 @@ class SimpleVCLinkPlugin(VCPluginMixin, IndicoPlugin):
                                             data)
         event_vc_room.data.update({
             key: data.pop(key)
-            for key in ['show_join_button', 'only_registered_users']
+            for key in ['extra_text', 'show_join_button', 'only_registered_users']
         })
 
         flag_modified(event_vc_room, 'data')
@@ -96,7 +99,7 @@ class SimpleVCLinkPlugin(VCPluginMixin, IndicoPlugin):
     def update_data_vc_room(self, vc_room, data, is_new=False):
         super(SimpleVCLinkPlugin, self).update_data_vc_room(vc_room, data)
 
-        for key in ['room_url']:
+        for key in ['room_url', 'extra_text']:
             if key in data:
                 vc_room.data[key] = data.pop(key)
 
