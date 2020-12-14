@@ -15,6 +15,7 @@ from indico.core.plugins import (IndicoPlugin, IndicoPluginBlueprint,
 from indico.modules.events.registration.util import get_event_regforms
 from indico.modules.vc import VCPluginMixin
 from indico.modules.vc.forms import VCRoomAttachFormBase, VCRoomFormBase
+from indico.util.caching import memoize_request
 from indico.util.i18n import _
 from indico.web.forms.widgets import SwitchWidget
 
@@ -121,5 +122,8 @@ class SimpleVCLinkPlugin(VCPluginMixin, IndicoPlugin):
                                                 **kwargs)
 
     def show(self, event, only_reg=False):
-        return not only_reg or any(
-            [x[1] for x in get_event_regforms(event, session.user)])
+        return (not only_reg) or self.is_registered(event)
+
+    @memoize_request
+    def is_registered(self, event):
+        return any([x[1] for x in get_event_regforms(event, session.user)])
