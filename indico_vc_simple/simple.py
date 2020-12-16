@@ -35,8 +35,6 @@ class VCRoomForm(VCRoomFormBase):
 
 
 class VCRoomAttachForm(VCRoomAttachFormBase):
-    room_url = URLField('Room URL?', description="vc room url")
-    extra_text = StringField('Extra infos', description="Extra infos, e.g. password")
     show_join_button = BooleanField(
         _('Show join Button'),
         widget=SwitchWidget(),
@@ -45,7 +43,6 @@ class VCRoomAttachForm(VCRoomAttachFormBase):
         _('Only registered users'),
         widget=SwitchWidget(),
         description=_("Only registered users"))
-
 
 class SimpleVCLinkPlugin(VCPluginMixin, IndicoPlugin):
     """Simple VC link plugin
@@ -92,7 +89,7 @@ class SimpleVCLinkPlugin(VCPluginMixin, IndicoPlugin):
                                             data)
         event_vc_room.data.update({
             key: data.pop(key)
-            for key in ['extra_text', 'show_join_button', 'only_registered_users']
+            for key in ['show_join_button', 'only_registered_users']
         })
 
         flag_modified(event_vc_room, 'data')
