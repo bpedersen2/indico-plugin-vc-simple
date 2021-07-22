@@ -1,6 +1,6 @@
 
 {% macro render_join_button(vc_room, extra_classes="") %}
-<a class="i-button highlight {{ extra_classes }}" title="{{ vc_room.data.extra_text }}"
+<a class="i-button highlight {{ extra_classes }}" title="{{ vc_room.data.extra_text | default ('') }}"
        href="{{ vc_room.data.room_url }}" target="_blank">
         {% trans %}Join{% endtrans %}
     </a>
