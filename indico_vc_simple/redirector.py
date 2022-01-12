@@ -8,8 +8,7 @@ import requests
 from flask import flash, redirect, session
 from sqlalchemy.orm.attributes import flag_modified
 from werkzeug.exceptions import BadRequest
-from wtforms.fields.core import BooleanField
-from wtforms.fields.html5 import URLField
+from wtforms.fields import BooleanField, URLField
 
 from indico.core.plugins import IndicoPluginBlueprint, url_for_plugin
 from indico.modules.events.contributions.models.contributions import \

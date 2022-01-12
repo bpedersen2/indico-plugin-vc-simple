@@ -7,8 +7,7 @@ from __future__ import unicode_literals
 
 from flask import session
 from sqlalchemy.orm.attributes import flag_modified
-from wtforms.fields.core import BooleanField, StringField
-from wtforms.fields.html5 import URLField
+from wtforms.fields import BooleanField, StringField, URLField
 
 from indico.core.plugins import (IndicoPlugin, IndicoPluginBlueprint,
                                  url_for_plugin)
