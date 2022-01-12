@@ -22,7 +22,7 @@ setup(
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
     install_requires=[
-        'indico>=2.0'
+        'indico>=3.1'
     ],
     classifiers=[
         'Environment :: Plugins',
