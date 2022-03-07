@@ -88,11 +88,7 @@ def RHredirectToExternal(contrib_id):
     contrib = Contribution.get_or_404(contrib_id)
     event = contrib.event
     if not session.user:
-        if vca.data.get('only_registered_users'):
-            flash(_("The vc link  is only available to logged in users."),'error')
-            raise BadRequest(response=redirect(event.url))
-        else:
-            username = 'Anonymous User'
+        username = 'Anonymous User'
     else:
         username = session.user.name
 
@@ -104,8 +100,8 @@ def RHredirectToExternal(contrib_id):
             break
     else:
         raise BadRequest(response=redirect(event.url))
-    if vca.data.get('only_registered_users') and \
-        not any([x[1] for x in get_event_regforms(event, session.user)]):
+    if vca.data.get('only_registered_users') and (not session.user or \
+        not any([x[1] for x in get_event_regforms(event, session.user)])):
         flash(_("The vc link is only available to registered users."),'error')
         raise BadRequest(response=redirect(event.url))
 
