@@ -88,8 +88,13 @@ def RHredirectToExternal(contrib_id):
     contrib = Contribution.get_or_404(contrib_id)
     event = contrib.event
     if not session.user:
-        flash(_("The vc link  is only available to logged in users."),'error')
-        raise BadRequest(response=redirect(event.url))
+        if vca.data.get('only_registered_users'):
+            flash(_("The vc link  is only available to logged in users."),'error')
+            raise BadRequest(response=redirect(event.url))
+        else:
+            username = 'Anonymous User'
+    else:
+        username = session.user.name
 
     vcas = contrib.vc_room_associations
     vca = None
@@ -106,7 +111,7 @@ def RHredirectToExternal(contrib_id):
 
     vcroom = vca.vc_room
     url = vcroom.data['room_url_base']
-    data = {'id': contrib.friendly_id, 'username': session.user.name}
+    data = {'id': contrib.friendly_id, 'username': username}
 
     req = requests.post(url, json=data)
     if req.status_code != 200:
