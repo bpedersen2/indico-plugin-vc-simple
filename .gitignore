@@ -20,3 +20,4 @@ node_modules/
 *.lock
 url_map.json
 */version.py
+.eggs/
